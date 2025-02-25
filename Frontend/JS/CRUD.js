@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             data.forEach(store => {
                 let storeBox = document.createElement("div");
-                storeBox.classList.add("store-Box");
+                storeBox.classList.add("store-box");
                 storeBox.innerHTML = `
                     <h3>${store.name}</h3>
                     <p><strong>Område:</strong> ${store.district ?? "Okänt"}</p>

@@ -1,51 +1,51 @@
-.body{
+body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: beige;
+    background-color: #f4f4f4;
 }
+
 .top-header {
     background: #333;
     color: beige;
     text-align: center;
-    padding: 50px;
+    padding: 15px;
     position: fixed;
     width: 100%;
     top: 0;
     left: 0;
-    font-size: 40px;
-    font-weight: bold;
 }
-#store-container{
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-    justify-content: center;
-}
-.store-box{
-    background: gray;
-    border: 2px solid #ddd;
-    border-radius: 10px;
-    padding: 15px;
-    box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+
+h1 {
+    margin-top: 80px;
     text-align: center;
 }
-.store-box h2 {
-    font-size: 20px;
-    margin-bottom: 10px;
-    color: #333;
+
+.store-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.store-box {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
 .store-box a {
-    display: inline-block;
+    display: block;
     margin-top: 10px;
-    padding: 8px 12px;
-    background: #007bff;
-    color: white;
     text-decoration: none;
-    border-radius: 5px;
+    color: #007BFF;
+    font-weight: bold;
 }
 
-.store-box a:hover{
-    background: #0056b3;
+.store-box a:hover {
+    color: #0056b3;
 }
