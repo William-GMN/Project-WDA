@@ -13,11 +13,29 @@ document.addEventListener("DOMContentLoaded", () => {
             const itemsPerPage = 12;
             let currentPage = 1;
 
+            const areaSelect = document.createElement("select");
+            areaSelect.id = "area-select";
+            const areas = ["all", "öster", "väster", "null", "tändstickområdet", "atollen"];
+            areas.forEach(area => {
+                const option = document.createElement("option");
+                option.value = area;
+                option.textContent = area.charAt(0).toUpperCase() + area.slice(1); 
+                areaSelect.appendChild(option);
+            });
+            document.body.insertBefore(areaSelect, storeContainer); 
+
             function renderPage(page) {
                 storeContainer.innerHTML = "";
                 const start = (page - 1) * itemsPerPage;
                 const end = start + itemsPerPage;
-                const paginatedItems = data.slice(start, end);
+
+                let filteredData = data;
+                const selectedArea = areaSelect.value;
+                if (selectedArea !== "all") {
+                    filteredData = data.filter(store => store.district === selectedArea);
+                }
+
+                const paginatedItems = filteredData.slice(start, end);
 
                 paginatedItems.forEach(store => {
                     let storeBox = document.createElement("div");
@@ -30,12 +48,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     storeContainer.appendChild(storeBox);
                 });
 
-                renderPagination();
+                renderPagination(filteredData);
             }
 
-            function renderPagination() {
+            function renderPagination(filteredData) {
                 paginationContainer.innerHTML = "";
-                const totalPages = Math.ceil(data.length / itemsPerPage);
+                const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
                 if (currentPage > 1) {
                     const prevButton = document.createElement("button");
@@ -64,6 +82,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     paginationContainer.appendChild(nextButton);
                 }
             }
+
+            
+            areaSelect.addEventListener("change", () => {
+                currentPage = 1; 
+                renderPage(currentPage); 
+            });
 
             renderPage(currentPage);
         })
