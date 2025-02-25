@@ -3,18 +3,18 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(response => response.json())
         .then(data => {
             const storeContainer = document.createElement("div");
-            storeContainer.innerHTML = "<h2>Butiker i Jönköping</h2><ul id='store-list'></ul>";
+            storeContainer.classList.add("store-container");
             document.body.appendChild(storeContainer);
 
-            const storeList = document.getElementById("store-list");
-
             data.forEach(store => {
-                let listItem = document.createElement("li");
-                listItem.innerHTML = `
-                    <strong>${store.name}</strong> - Område: ${store.district ?? "Okänt"}<br>
+                let storeBox = document.createElement("div");
+                storeBox.classList.add("store-Box");
+                storeBox.innerHTML = `
+                    <h3>${store.name}</h3>
+                    <p><strong>Område:</strong> ${store.district ?? "Okänt"}</p>
                     <a href="https://${store.url}" target="_blank">${store.url ? "Besök butik" : "Ingen webbsida"}</a>
                 `;
-                storeList.appendChild(listItem);
+                storeContainer.appendChild(storeBox);
             });
         })
         .catch(error => console.error("Fel vid hämtning av data:", error));
