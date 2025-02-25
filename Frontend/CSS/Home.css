@@ -36,6 +36,8 @@ h1 {
     border-radius: 10px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
+    width: 250px; /* Fixed width */
+    height: 150px; /* Fixed height */
 }
 
 .store-box a {
@@ -48,4 +50,27 @@ h1 {
 
 .store-box a:hover {
     color: #0056b3;
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    position: fixed;
+    bottom: 20px; /* Fixed position at the bottom */
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.page-button {
+    margin: 0 5px;
+    padding: 10px 15px;
+    border: none;
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+
+.page-button.active {
+    background-color: #007bff;
+    color: white;
 }
