@@ -2,7 +2,10 @@ const express = require("express")
 const app = express()
 const PORT = 8080;
 const path = require("path")
-//const cors = require("cors")
+
+//const { createDBFromJSON } = require('./Database')
+//createDBFromJSON()
+
 const stores = require("./stores.json");
 
 app.use(express.static(path.join(__dirname, "../Frontend")));
@@ -22,3 +25,4 @@ app.listen(PORT, () => {
 })
 
 app.use(express.static(path.join(__dirname, "../Frontend")))
+
