@@ -1,20 +1,20 @@
 document.addEventListener("DOMContentLoaded", () => {
-    fetch("/stores")
+    fetch("/api/stores")
         .then(response => response.json())
         .then(data => {
             const storeContainer = createStoreContainer();
             const paginationContainer = createPaginationContainer();
-            const areaSelect = createAreaSelect(data, storeContainer, paginationContainer);
+            const areaSelect = createAreaSelect(data.data, storeContainer, paginationContainer);
 
             const itemsPerPage = 12;
             let currentPage = 1;
 
             areaSelect.addEventListener("change", () => {
                 currentPage = 1; 
-                renderPage(storeContainer, paginationContainer, data, currentPage, itemsPerPage, areaSelect);
+                renderPage(storeContainer, paginationContainer, data.data, currentPage, itemsPerPage, areaSelect);
             });
 
-            renderPage(storeContainer, paginationContainer, data, currentPage, itemsPerPage, areaSelect);
+            renderPage(storeContainer, paginationContainer, data.data, currentPage, itemsPerPage, areaSelect);
         })
         .catch(error => console.error("Fel vid hämtning av data:", error));
 });
