@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const paginationContainer = document.querySelector(".pagination-container");
             const areaSelect = document.getElementById("area-select");
 
-            const itemsPerPage = 12;
+            const itemsPerPage = 8;
             let currentPage = 1;
 
             const areas = ["all", ...new Set(data.data.map(store => store.district).filter(Boolean))];
