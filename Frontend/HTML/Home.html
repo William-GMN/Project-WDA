@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sv">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="CSS/Home.css">
-    <title>Jönköping City.</title>
+    <title>Jönköping City</title>
 </head>
 <body>
     <header class="top-header">
@@ -13,9 +13,15 @@
 
     <main>    
         <h1>Lista över Butiker</h1>
-        <label for="area-select">Välj område:</label>
+        
+        <div class="filter-container">
+            <label for="area-select">Välj område:</label>
+            <select id="area-select"></select>
+        </div>
 
-        <div id="store-container"></div> 
+        <div id="store-container" class="store-container"></div>
+
+        <div class="pagination-container"></div>
     </main>
 
     <script src="/JS/CRUD.js"></script>

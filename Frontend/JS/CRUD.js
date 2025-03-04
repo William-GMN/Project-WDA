@@ -2,15 +2,24 @@ document.addEventListener("DOMContentLoaded", () => {
     fetch("/api/stores")
         .then(response => response.json())
         .then(data => {
-            const storeContainer = createStoreContainer();
-            const paginationContainer = createPaginationContainer();
-            const areaSelect = createAreaSelect(data.data, storeContainer, paginationContainer);
+            const storeContainer = document.getElementById("store-container");
+            const paginationContainer = document.querySelector(".pagination-container");
+            const areaSelect = document.getElementById("area-select");
 
             const itemsPerPage = 12;
             let currentPage = 1;
 
+            const areas = ["all", ...new Set(data.data.map(store => store.district).filter(Boolean))];
+            areaSelect.innerHTML = "";
+            areas.forEach(area => {
+                const option = document.createElement("option");
+                option.value = area;
+                option.textContent = area.charAt(0).toUpperCase() + area.slice(1);
+                areaSelect.appendChild(option);
+            });
+
             areaSelect.addEventListener("change", () => {
-                currentPage = 1; 
+                currentPage = 1;
                 renderPage(storeContainer, paginationContainer, data.data, currentPage, itemsPerPage, areaSelect);
             });
 
@@ -19,46 +28,14 @@ document.addEventListener("DOMContentLoaded", () => {
         .catch(error => console.error("Fel vid hämtning av data:", error));
 });
 
-function createStoreContainer() {
-    const container = document.createElement("div");
-    container.classList.add("store-container");
-    document.body.appendChild(container);
-    return container;
-}
-
-function createPaginationContainer() {
-    const container = document.createElement("div");
-    container.classList.add("pagination-container");
-    document.body.appendChild(container);
-    return container;
-}
-
-function createAreaSelect(data, storeContainer, paginationContainer) {
-    const areaSelect = document.createElement("select");
-    areaSelect.id = "area-select";
-    const areas = ["all", "öster", "väster", "null", "tändstickområdet", "atollen"];
-    areas.forEach(area => {
-        const option = document.createElement("option");
-        option.value = area;
-        option.textContent = area.charAt(0).toUpperCase() + area.slice(1); 
-        areaSelect.appendChild(option);
-    });
-    document.body.insertBefore(areaSelect, storeContainer); 
-    return areaSelect;
-}
-
 function renderPage(storeContainer, paginationContainer, data, page, itemsPerPage, areaSelect) {
     storeContainer.innerHTML = "";
-    const start = (page - 1) * itemsPerPage;
-    const end = start + itemsPerPage;
-
-    let filteredData = data;
     const selectedArea = areaSelect.value;
-    if (selectedArea !== "all") {
-        filteredData = data.filter(store => store.district === selectedArea);
-    }
+    
+    let filteredData = selectedArea === "all" ? data : data.filter(store => store.district === selectedArea);
 
-    const paginatedItems = filteredData.slice(start, end);
+    const start = (page - 1) * itemsPerPage;
+    const paginatedItems = filteredData.slice(start, start + itemsPerPage);
 
     paginatedItems.forEach(store => {
         let storeBox = createStoreBox(store);
